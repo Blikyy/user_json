@@ -8,6 +8,7 @@ $db_name = "data";
 $db = new mysqli($server, $username, $password, $db_name);
 
 if(isset($_POST["submit"])){
+
     $name = $_POST["new_user"];
     $sql = "INSERT INTO `data_test`(`id`, `name`) VALUES (NULL,'$name')";
     $result = mysqli_query($db, $sql);
@@ -20,13 +21,16 @@ if(isset($_POST["submit"])){
         "name" => $name
     );
     $json = json_encode($data);
-    file_put_contents("data_".$name.".json", $json);
-    header("Location: index.php");
+    file_put_contents("data/data_".$name.".json", $json);
+    header("Location: main_page.php");
+    
+
 }
 if(isset($_POST["sub_name"])){
+
     $user = $_POST["user"];
-    $user_json = file_get_contents("data_".$user.".json");
-    header("Location: index.php?user=" . urlencode($user) . "&user_json=" . urlencode($user_json));
+    $user_json = file_get_contents("data/data_".$user.".json");
+    header("Location: main_page.php?user=" . urlencode($user) . "&user_json=" . urlencode($user_json));
     
 }
 
